@@ -43,5 +43,4 @@ public class Desconto {
         this.percentual = percentual;
     }
     
-    
 }

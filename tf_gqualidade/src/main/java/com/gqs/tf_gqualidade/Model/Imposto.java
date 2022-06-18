@@ -43,5 +43,4 @@ public class Imposto {
         this.valor = valor;
     }
     
-    
 }
