@@ -29,8 +29,9 @@ public class Pedido {
     private List<ItemDePedido> itens;
     private List<Imposto> impostos;
     private List<Desconto> descontos;
+    private Cliente cliente;
 
-    public Pedido() {
+    public Pedido(Cliente cliente) {
         this.numero = PedidoDAO.getInstance().getNroPedidos() + 1;
         this.data = LocalDateTime.now();
         this.valorTotal = 0;
@@ -41,6 +42,7 @@ public class Pedido {
         this.itens = new ArrayList<>();
         this.impostos = ImpostoDAO.getInstance().getImpostos();
         this.descontos = DescontoDAO.getInstance().getDescontos();
+        this.cliente = cliente;
     }
 
     public void esvaziarListaItens() {

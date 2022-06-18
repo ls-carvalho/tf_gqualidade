@@ -4,6 +4,7 @@
  */
 package com.gqs.tf_gqualidade.business;
 
+import com.gqs.tf_gqualidade.model.Cliente;
 import com.gqs.tf_gqualidade.model.Pedido;
 
 /**
@@ -14,8 +15,9 @@ public class Business {
 
     private Pedido pedido;
 
-    public void criarPedido() {
-        this.pedido = new Pedido();
+    public void criarPedido(String nomeCliente) {
+        var cliente = new Cliente(nomeCliente);
+        this.pedido = new Pedido(cliente);
     }
 
     public Pedido getPedido() {
