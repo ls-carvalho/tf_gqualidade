@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DataAccessObject;
+package com.gqs.tf_gqualidade.dao;
 
 import com.gqs.tf_gqualidade.Model.Pedido;
 import java.util.ArrayList;
@@ -29,14 +29,9 @@ public class PedidoDAO {
         return instance;
     }
 
-    void adicionaPedido(Pedido pedido) {
+    public void adicionaPedido(Pedido pedido) {
         //valida campos
         pedidos.add(pedido);
-    }
-
-    void removePedido(Pedido pedido) {
-        //busca o pedido
-        pedidos.remove(pedido);
     }
 
     public Pedido buscaPedidoPorNumero(int numero) {
@@ -48,11 +43,11 @@ public class PedidoDAO {
         throw new RuntimeException("Pedido com o número " + numero + " não encontrado!");
     }
 
-    public List<Pedido> getProdutos() {
+    public List<Pedido> getPedidos() {
         return Collections.unmodifiableList(pedidos);
     }
 
-    public int getNroProdutos() {
+    public int getNroPedidos() {
         return pedidos.size();
     }
 

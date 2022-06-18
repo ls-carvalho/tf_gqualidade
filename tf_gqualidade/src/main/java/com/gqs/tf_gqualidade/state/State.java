@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package State;
+package com.gqs.tf_gqualidade.state;
 
 import com.gqs.tf_gqualidade.Model.Pedido;
 
@@ -12,9 +12,10 @@ import com.gqs.tf_gqualidade.Model.Pedido;
  */
 public abstract class State {
 
+    private static final String ERRO_1 = "Não é possivel usar esse metodo neste estado.";  // Compliant
     private Pedido pedido;
 
-    public State(Pedido pedido) {
+    protected State(Pedido pedido) {
         this.pedido = pedido;
     }
 
@@ -23,19 +24,19 @@ public abstract class State {
     }
 
     public void concluir() { //avança para o proximo estágio do State
-        throw new RuntimeException("Não é possivel usar esse metodo neste estado.");
+        throw new RuntimeException(ERRO_1);
     }
 
-    public void incluir() { //avança para o proximo estágio do State
-        throw new RuntimeException("Não é possivel usar esse metodo neste estado.");
+    public void incluir(int codigo, double quantidade) { //avança para o proximo estágio do State
+        throw new RuntimeException(ERRO_1);
     }
 
-    public void remover() { //avança para o proximo estágio do State
-        throw new RuntimeException("Não é possivel usar esse metodo neste estado.");
+    public void remover(int codigo, double quantidade) { //avança para o proximo estágio do State
+        throw new RuntimeException(ERRO_1);
     }
 
     public void cancelar() { //regride para o outro estágio do State
-        throw new RuntimeException("Não é possivel usar esse metodo neste estado.");
+        throw new RuntimeException(ERRO_1);
     }
 
 }

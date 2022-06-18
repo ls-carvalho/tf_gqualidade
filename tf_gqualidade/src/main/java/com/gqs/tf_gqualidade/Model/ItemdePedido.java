@@ -8,12 +8,29 @@ package com.gqs.tf_gqualidade.Model;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class ItemdePedido {
-    private int quantidade;
+public class ItemDePedido {
+
+    private Produto produto;
+    private double quantidade;
     private double valorUnitario;
     private double valorTotal;
 
-    public int getQuantidade() {
+    public ItemDePedido(Produto produto, double quantidade) {
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.valorUnitario = produto.getPrecoUnitario();
+        this.valorTotal = this.quantidade * this.valorUnitario;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public double getQuantidade() {
         return quantidade;
     }
 
@@ -36,6 +53,20 @@ public class ItemdePedido {
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
+
+    public void aumentarQuantidade(double adicao){
+        if(adicao > 0){
+            this.quantidade += adicao;
+        }else{
+            throw new RuntimeException("Não pode-se adicionar 0 ou menos elementos no pedido!");
+        }
+    }
     
-    
+    public void diminuirQuantidade(double diminuicao){
+        if(diminuicao <= this.quantidade){
+            this.quantidade -= diminuicao;
+        }else{
+            throw new RuntimeException("Não se pode remover um valor maior que existe no pedido!");
+        }
+    }
 }
