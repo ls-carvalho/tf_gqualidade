@@ -8,14 +8,14 @@ package com.gqs.tf_gqualidade.model;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class Produto {
+public class ProdutoModel {
 
     private int codigo;
     private String nome;
     private double quantidadeEmEstoque;
     private double precoUnitario;
 
-    public Produto(int codigo, String nome, double quantidadeEmEstoque, double precoUnitario) {
+    public ProdutoModel(int codigo, String nome, double quantidadeEmEstoque, double precoUnitario) {
         this.codigo = codigo;
         this.nome = nome;
         this.quantidadeEmEstoque = quantidadeEmEstoque;

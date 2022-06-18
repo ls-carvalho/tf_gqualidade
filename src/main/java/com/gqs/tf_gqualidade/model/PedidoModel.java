@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class Pedido {
+public class PedidoModel {
 
     private int numero;
     private LocalDateTime data;
@@ -26,12 +26,13 @@ public class Pedido {
     private double valorFinalAPagar;
     private double valorTotalDescontos;
     private State estado;
-    private List<ItemDePedido> itens;
-    private List<Imposto> impostos;
-    private List<Desconto> descontos;
-    private Cliente cliente;
+    private List<ItemDePedidoModel> cesta;
+    private List<ItemDePedidoModel> itens;
+    private List<ImpostoModel> impostos;
+    private List<DescontoModel> descontos;
+    private ClienteModel cliente;
 
-    public Pedido(Cliente cliente) {
+    public PedidoModel(ClienteModel cliente) {
         this.numero = PedidoDAO.getInstance().getNroPedidos() + 1;
         this.data = LocalDateTime.now();
         this.valorTotal = 0;
@@ -39,22 +40,72 @@ public class Pedido {
         this.valorFinalAPagar = 0;
         this.valorTotalDescontos = 0;
         this.estado = new NovoState(this);
+        this.cesta = new ArrayList<>();
         this.itens = new ArrayList<>();
         this.impostos = ImpostoDAO.getInstance().getImpostos();
         this.descontos = DescontoDAO.getInstance().getDescontos();
         this.cliente = cliente;
     }
 
+    public void adicionarCesta(List<ItemDePedidoModel> cesta) {
+        //adiciona a cesta na lista
+        for (var item : cesta) { //this.getCesta().addAll(cesta);
+            this.getCesta().add(item);
+            //adiciona o valor a conta
+            this.valorTotal += item.getProduto().getPrecoUnitario() * item.getQuantidade();
+        }
+        calculaValores();
+    }
+
+    public void removerCesta(List<ItemDePedidoModel> cesta) {
+        for (var item : cesta) {
+            if (!this.getCesta().contains(item)) {
+                throw new RuntimeException("Esse pedido não contém essa cesta!");
+            }
+        }
+        for (var item : cesta) {
+            if (this.buscaItemPorProdutoCesta(item.getProduto()).getQuantidade() == item.getQuantidade()) {
+                this.getCesta().remove(item);
+                //remove o valor da conta
+                this.valorTotal -= item.getProduto().getPrecoUnitario() * item.getQuantidade();
+                calculaValores();
+            } else if (this.buscaItemPorProdutoCesta(item.getProduto()).getQuantidade() > item.getQuantidade()) {
+                this.buscaItemPorProdutoCesta(item.getProduto()).diminuirQuantidade(item.getQuantidade());
+                //remove o valor a conta
+                this.valorTotal -= item.getProduto().getPrecoUnitario() * item.getQuantidade();
+                calculaValores();
+            } else if (this.buscaItemPorProdutoCesta(item.getProduto()).getQuantidade() < item.getQuantidade()) {
+                throw new RuntimeException("Não é possivel remover mais produtos do tipo " + item.getProduto().getNome() + "do que constam na cesta!");
+            }
+        }
+    }
+
+    public List<ItemDePedidoModel> getCesta() {
+        return cesta;
+    }
+
+    public List<ImpostoModel> getImpostos() {
+        return impostos;
+    }
+
+    public List<DescontoModel> getDescontos() {
+        return descontos;
+    }
+
+    public ClienteModel getCliente() {
+        return cliente;
+    }
+
     public void esvaziarListaItens() {
         if (this.getItens().isEmpty()) {
             throw new RuntimeException("Não se pode esvaziar uma lista de produtos vazia!");
         }
-        for (ItemDePedido idp : this.getItens()) {
+        for (ItemDePedidoModel idp : this.getItens()) {
             this.removerItem(idp, idp.getQuantidade());
         }
     }
 
-    public void adicionarItem(ItemDePedido item) {
+    public void adicionarItem(ItemDePedidoModel item) {
         //adiciona o item na lista
         this.getItens().add(item);
         //adiciona o valor a conta
@@ -74,7 +125,7 @@ public class Pedido {
 
     private double calculaDescontos(double valorBase) {
         var perc = 0;
-        for (Desconto desconto : this.descontos) {
+        for (DescontoModel desconto : this.descontos) {
             perc += desconto.getPercentual();
         }
         return (valorBase * perc) / 100;
@@ -82,14 +133,23 @@ public class Pedido {
 
     private double calculaImpostos(double valorBase) {
         var perc = 0;
-        for (Imposto imposto : this.impostos) {
+        for (ImpostoModel imposto : this.impostos) {
             perc += imposto.getPercentual();
         }
         return (valorBase * perc) / 100;
     }
 
-    public ItemDePedido buscaItemPorProduto(Produto produto) {
-        for (ItemDePedido idp : this.getItens()) {
+    public ItemDePedidoModel buscaItemPorProdutoCesta(ProdutoModel produto) {
+        for (ItemDePedidoModel idp : this.getCesta()) {
+            if (idp.getProduto().getCodigo() == produto.getCodigo()) {
+                return idp;
+            }
+        }
+        throw new RuntimeException("Produto com o código " + produto.getCodigo() + " não encontrado na lista da cesta!");
+    }
+
+    public ItemDePedidoModel buscaItemPorProdutoItens(ProdutoModel produto) {
+        for (ItemDePedidoModel idp : this.getItens()) {
             if (idp.getProduto().getCodigo() == produto.getCodigo()) {
                 return idp;
             }
@@ -97,19 +157,19 @@ public class Pedido {
         throw new RuntimeException("Produto com o código " + produto.getCodigo() + " não encontrado na lista de itens!");
     }
 
-    public void removerItem(ItemDePedido item, double quantidade) {
+    public void removerItem(ItemDePedidoModel item, double quantidade) {
         if (this.getItens().contains(item)) {
-            if (this.buscaItemPorProduto(item.getProduto()).getQuantidade() == quantidade) {
+            if (this.buscaItemPorProdutoItens(item.getProduto()).getQuantidade() == quantidade) {
                 this.getItens().remove(item);
                 //remove o valor a conta
                 this.valorTotal -= item.getProduto().getPrecoUnitario() * item.getQuantidade();
                 calculaValores();
-            } else if (this.buscaItemPorProduto(item.getProduto()).getQuantidade() > quantidade) {
-                this.buscaItemPorProduto(item.getProduto()).diminuirQuantidade(quantidade);
+            } else if (this.buscaItemPorProdutoItens(item.getProduto()).getQuantidade() > quantidade) {
+                this.buscaItemPorProdutoItens(item.getProduto()).diminuirQuantidade(quantidade);
                 //remove o valor a conta
                 this.valorTotal -= item.getProduto().getPrecoUnitario() * quantidade;
                 calculaValores();
-            } else if (this.buscaItemPorProduto(item.getProduto()).getQuantidade() < quantidade) {
+            } else if (this.buscaItemPorProdutoItens(item.getProduto()).getQuantidade() < quantidade) {
                 throw new RuntimeException("Não é possivel remover mais produtos do tipo " + item.getProduto().getNome() + "do que constam na lista!");
             }
         } else {
@@ -121,7 +181,7 @@ public class Pedido {
         return itens.size();
     }
 
-    public List<ItemDePedido> getItens() {
+    public List<ItemDePedidoModel> getItens() {
         return itens;
     }
 
@@ -180,6 +240,5 @@ public class Pedido {
     public void setValorTotalDescontos(double valorTotalDescontos) {
         this.valorTotalDescontos = valorTotalDescontos;
     }
-
 
 }

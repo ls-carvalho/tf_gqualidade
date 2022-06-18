@@ -4,8 +4,8 @@
  */
 package com.gqs.tf_gqualidade.business;
 
-import com.gqs.tf_gqualidade.model.Cliente;
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.model.ClienteModel;
+import com.gqs.tf_gqualidade.model.PedidoModel;
 
 /**
  *
@@ -13,14 +13,14 @@ import com.gqs.tf_gqualidade.model.Pedido;
  */
 public class Business {
 
-    private Pedido pedido;
+    private PedidoModel pedido;
 
     public void criarPedido(String nomeCliente) {
-        var cliente = new Cliente(nomeCliente);
-        this.pedido = new Pedido(cliente);
+        var cliente = new ClienteModel(nomeCliente);
+        this.pedido = new PedidoModel(cliente);
     }
 
-    public Pedido getPedido() {
+    public PedidoModel getPedido() {
         return pedido;
     }
 

@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.model.PedidoModel;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.gqs.tf_gqualidade.model.Pedido;
  */
 public class ProntoParaEntregaState extends State {
 
-    public ProntoParaEntregaState(Pedido pedido) {
+    public ProntoParaEntregaState(PedidoModel pedido) {
         super(pedido);
     }
 

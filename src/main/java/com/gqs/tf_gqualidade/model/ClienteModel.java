@@ -8,10 +8,10 @@ package com.gqs.tf_gqualidade.model;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class Cliente {
+public class ClienteModel {
     private String nome;
 
-    public Cliente(String nome) {
+    public ClienteModel(String nome) {
         this.nome = nome;
     }
 

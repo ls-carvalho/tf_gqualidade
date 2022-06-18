@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.model.PedidoModel;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.gqs.tf_gqualidade.model.Pedido;
  */
 public class CanceladoPeloEstabelecimentoState extends State {
 
-    public CanceladoPeloEstabelecimentoState(Pedido pedido) {
+    public CanceladoPeloEstabelecimentoState(PedidoModel pedido) {
         super(pedido);
     }
 

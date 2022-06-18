@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.model.PedidoModel;
 import com.gqs.tf_gqualidade.util.AvaliacaoUtil;
 
 /**
@@ -13,7 +13,7 @@ import com.gqs.tf_gqualidade.util.AvaliacaoUtil;
  */
 public class ReembolsadoState extends State {
 
-    public ReembolsadoState(Pedido pedido) {
+    public ReembolsadoState(PedidoModel pedido) {
         super(pedido);
     }
 
