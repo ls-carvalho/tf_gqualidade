@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.business;
 
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.folder.Pedido;
 
 /**
  *

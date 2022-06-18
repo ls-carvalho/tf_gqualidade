@@ -4,8 +4,8 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.model.ItemDePedido;
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.folder.ItemDePedido;
+import com.gqs.tf_gqualidade.folder.Pedido;
 import com.gqs.tf_gqualidade.dao.PedidoDAO;
 import com.gqs.tf_gqualidade.dao.ProdutoDAO;
 
