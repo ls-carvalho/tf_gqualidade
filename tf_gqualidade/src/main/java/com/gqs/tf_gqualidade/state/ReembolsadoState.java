@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.Model.Pedido;
+import com.gqs.tf_gqualidade.folder.Pedido;
 import com.gqs.tf_gqualidade.util.AvaliacaoUtil;
 
 /**

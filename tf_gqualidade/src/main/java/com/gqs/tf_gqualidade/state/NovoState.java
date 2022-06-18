@@ -4,8 +4,8 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.Model.ItemDePedido;
-import com.gqs.tf_gqualidade.Model.Pedido;
+import com.gqs.tf_gqualidade.folder.ItemDePedido;
+import com.gqs.tf_gqualidade.folder.Pedido;
 import com.gqs.tf_gqualidade.dao.PedidoDAO;
 import com.gqs.tf_gqualidade.dao.ProdutoDAO;
 
@@ -25,7 +25,7 @@ public class NovoState extends State {
         //validação do formulário
         if (super.getPedido().getQuantidadeItens() > 0) {
             //confirmar pedido
-            System.out.println("Pedido confirmado!");            
+            System.out.println("Pedido confirmado!");
             //incluir na PedidoDAO
             PedidoDAO.getInstance().adicionaPedido(super.getPedido());
             //avança de estado
@@ -37,36 +37,29 @@ public class NovoState extends State {
     }
 
     @Override
-    public void incluir(int codigo, double quantidade) {
+    public void incluir(int codigo, double quantidade) throws Exception {
         //realiza a inclusão
-        try {
-            var produto = ProdutoDAO.getInstance().buscaProdutoPorCodigo(codigo);
-            //remove do estoque
-            ProdutoDAO.getInstance().baixaEstoque(codigo, quantidade);
-            //adiciono na lista de produtos
-            this.getPedido().adicionarItem(new ItemDePedido(produto, quantidade));
-            //confirma operação
-            System.out.println(quantidade + " unidades do produto " + produto.getNome() + " adicionado com sucesso!");
-        } catch (Exception e) {
-            throw e;
-        }
+        var produto = ProdutoDAO.getInstance().buscaProdutoPorCodigo(codigo);
+        //remove do estoque
+        ProdutoDAO.getInstance().baixaEstoque(codigo, quantidade);
+        //adiciono na lista de produtos
+        this.getPedido().adicionarItem(new ItemDePedido(produto, quantidade));
+        //confirma operação
+        System.out.println(quantidade + " unidades do produto " + produto.getNome() + " adicionado com sucesso!");
     }
 
     @Override
-    public void remover(int codigo, double quantidade) {
+    public void remover(int codigo, double quantidade) throws Exception {
         //realiza a remoção
-        try {
-            var produto = ProdutoDAO.getInstance().buscaProdutoPorCodigo(codigo);
-            var idp = this.getPedido().buscaItemPorProduto(produto);
-            //remove o item da lista
-            this.getPedido().removerItem(idp, quantidade);
-            //devolve ao estoque
-            ProdutoDAO.getInstance().adicionaEstoque(codigo, quantidade);
-            //confirma a operação
-            System.out.println(quantidade + " unidades do produto " + produto.getNome() + " removido com sucesso!");
-        } catch (Exception e) {
-            throw e;
-        }
+        var produto = ProdutoDAO.getInstance().buscaProdutoPorCodigo(codigo);
+        var idp = this.getPedido().buscaItemPorProduto(produto);
+        //remove o item da lista
+        this.getPedido().removerItem(idp, quantidade);
+        //devolve ao estoque
+        ProdutoDAO.getInstance().adicionaEstoque(codigo, quantidade);
+        //confirma a operação
+        System.out.println(quantidade + " unidades do produto " + produto.getNome() + " removido com sucesso!");
+
     }
 
     @Override

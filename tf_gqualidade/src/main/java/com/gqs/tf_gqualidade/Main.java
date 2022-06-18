@@ -12,7 +12,7 @@ import com.gqs.tf_gqualidade.business.Business;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Business b = new Business();
         
         b.criarPedido();//crio o pedido no estágio de 'Novo'

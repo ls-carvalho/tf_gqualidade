@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.gqs.tf_gqualidade.Model;
+package com.gqs.tf_gqualidade.folder;
 
 import com.gqs.tf_gqualidade.dao.DescontoDAO;
 import com.gqs.tf_gqualidade.dao.ImpostoDAO;
@@ -178,5 +178,6 @@ public class Pedido {
     public void setValorTotalDescontos(double valorTotalDescontos) {
         this.valorTotalDescontos = valorTotalDescontos;
     }
+
 
 }
