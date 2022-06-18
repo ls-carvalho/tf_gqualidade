@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.dao;
 
-import com.gqs.tf_gqualidade.folder.Produto;
+import com.gqs.tf_gqualidade.model.Produto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
