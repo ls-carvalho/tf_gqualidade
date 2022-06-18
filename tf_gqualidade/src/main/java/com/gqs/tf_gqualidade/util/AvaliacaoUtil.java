@@ -11,6 +11,10 @@ import java.util.Scanner;
  * @author Lucas dos Santos Carvalho
  */
 public class AvaliacaoUtil {
+
+    private AvaliacaoUtil() {
+    }
+    
     public static void avaliacao() {
         System.out.println("Por favor, avalie o Atendimento do Pedido entre 1 e 5.");
         int avaliacao;

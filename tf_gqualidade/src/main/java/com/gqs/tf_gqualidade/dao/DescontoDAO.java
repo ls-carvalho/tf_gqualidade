@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.dao;
 
-import com.gqs.tf_gqualidade.Model.Desconto;
+import com.gqs.tf_gqualidade.model.Desconto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

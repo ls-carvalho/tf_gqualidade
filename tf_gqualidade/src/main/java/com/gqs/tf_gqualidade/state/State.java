@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.Model.Pedido;
+import com.gqs.tf_gqualidade.model.Pedido;
 
 /**
  *
@@ -27,11 +27,11 @@ public abstract class State {
         throw new RuntimeException(ERRO_1);
     }
 
-    public void incluir(int codigo, double quantidade) { //avança para o proximo estágio do State
+    public void incluir(int codigo, double quantidade) throws Exception { //avança para o proximo estágio do State
         throw new RuntimeException(ERRO_1);
     }
 
-    public void remover(int codigo, double quantidade) { //avança para o proximo estágio do State
+    public void remover(int codigo, double quantidade) throws Exception { //avança para o proximo estágio do State
         throw new RuntimeException(ERRO_1);
     }
 
