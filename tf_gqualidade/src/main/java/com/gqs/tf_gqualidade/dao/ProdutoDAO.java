@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DataAccessObject;
+package com.gqs.tf_gqualidade.dao;
 
 import com.gqs.tf_gqualidade.Model.Produto;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class ProdutoDAO {
         }
     }
 
-    void adicionaEstoque(int codigo, double quantidade) {
+    public void adicionaEstoque(int codigo, double quantidade) {
         verificaQuantidade(quantidade);
         Produto produto = buscaProdutoPorCodigo(codigo);
         produto.incrementaEstoque(quantidade);
@@ -82,7 +82,7 @@ public class ProdutoDAO {
         return buscaProdutoPorCodigo(codigo).getQuantidadeEmEstoque();
     }
 
-    void baixaEstoque(int codigo, double quantidade) {
+    public void baixaEstoque(int codigo, double quantidade) {
         verificaQuantidade(quantidade);
         Produto produto = buscaProdutoPorCodigo(codigo);
         double quantidadeEmEstoque = getQuantidadeEmEstoque(codigo);

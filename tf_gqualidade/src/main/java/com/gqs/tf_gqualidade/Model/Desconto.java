@@ -13,6 +13,12 @@ public class Desconto {
     private double valorDesconto;
     private double percentual;
 
+    public Desconto(String tipo, double percentual) {
+        this.tipo = tipo;
+        this.percentual = percentual;
+        this.valorDesconto = 0;
+    }
+
     public String getTipo() {
         return tipo;
     }

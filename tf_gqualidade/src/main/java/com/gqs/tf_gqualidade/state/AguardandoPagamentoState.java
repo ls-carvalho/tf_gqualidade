@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package State;
+package com.gqs.tf_gqualidade.state;
 
 import com.gqs.tf_gqualidade.Model.Pedido;
 
@@ -18,13 +18,18 @@ public class AguardandoPagamentoState extends State {
 
     @Override
     public void concluir() {
-        //bussiness logic de remoção do estoque
+        //aprova a operação
+        System.out.println("Operação aprovada!");
+        //muda de estado
         super.getPedido().alterarState(new ConfirmadoState(super.getPedido()));
     }
 
     @Override
     public void cancelar() {
-        super.getPedido().alterarState(new CanceladoPeloCliente(super.getPedido()));
+        //cancela a operação
+        System.out.println("Operação cancelada!");
+        //muda de estado
+        super.getPedido().alterarState(new CanceladoPeloClienteState(super.getPedido()));
     }
 
 }

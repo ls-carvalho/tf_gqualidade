@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package State;
+package com.gqs.tf_gqualidade.business;
 
 import com.gqs.tf_gqualidade.Model.Pedido;
 
@@ -10,14 +10,16 @@ import com.gqs.tf_gqualidade.Model.Pedido;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class EmRotaDeEntrega extends State {
+public class Business {
 
-    public EmRotaDeEntrega(Pedido pedido) {
-        super(pedido);
+    private Pedido pedido;
+
+    public void criarPedido() {
+        this.pedido = new Pedido();
     }
-    
-    @Override
-    public void concluir() {
-        super.getPedido().alterarState(new Entregue(super.getPedido()));
+
+    public Pedido getPedido() {
+        return pedido;
     }
+
 }
