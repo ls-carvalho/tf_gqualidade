@@ -8,25 +8,25 @@ package com.gqs.tf_gqualidade.model;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class ItemDePedido {
+public class ItemDePedidoModel {
 
-    private Produto produto;
+    private ProdutoModel produto;
     private double quantidade;
     private double valorUnitario;
     private double valorTotal;
 
-    public ItemDePedido(Produto produto, double quantidade) {
+    public ItemDePedidoModel(ProdutoModel produto, double quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.valorUnitario = produto.getPrecoUnitario();
         this.valorTotal = this.quantidade * this.valorUnitario;
     }
 
-    public Produto getProduto() {
+    public ProdutoModel getProduto() {
         return produto;
     }
 
-    public void setProduto(Produto produto) {
+    public void setProduto(ProdutoModel produto) {
         this.produto = produto;
     }
 

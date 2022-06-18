@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.state;
 
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.model.PedidoModel;
 
 /**
  *
@@ -13,13 +13,13 @@ import com.gqs.tf_gqualidade.model.Pedido;
 public abstract class State {
 
     private static final String ERRO_1 = "Não é possivel usar esse metodo neste estado.";  // Compliant
-    private Pedido pedido;
+    private PedidoModel pedido;
 
-    protected State(Pedido pedido) {
+    protected State(PedidoModel pedido) {
         this.pedido = pedido;
     }
 
-    public Pedido getPedido() {
+    public PedidoModel getPedido() {
         return pedido;
     }
 
@@ -27,14 +27,22 @@ public abstract class State {
         throw new RuntimeException(ERRO_1);
     }
 
-    public void incluir(int codigo, double quantidade) throws Exception { //avança para o proximo estágio do State
+    public void incluir(int codigo, double quantidade) throws Exception { //inclui um elemento no pedido
+        throw new RuntimeException(ERRO_1);
+    }
+    
+    public void incluir(int tipo) throws Exception { //inclui uma cesta no pedido
         throw new RuntimeException(ERRO_1);
     }
 
-    public void remover(int codigo, double quantidade) throws Exception { //avança para o proximo estágio do State
+    public void remover(int codigo, double quantidade) throws Exception { //remove o elemento do pedido
         throw new RuntimeException(ERRO_1);
     }
 
+    public void remover(int tipo) throws Exception { //remove uma cesta do pedido
+        throw new RuntimeException(ERRO_1);
+    }
+    
     public void cancelar() { //regride para o outro estágio do State
         throw new RuntimeException(ERRO_1);
     }

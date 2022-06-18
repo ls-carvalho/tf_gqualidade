@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.dao;
 
-import com.gqs.tf_gqualidade.model.Desconto;
+import com.gqs.tf_gqualidade.model.DescontoModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,14 +15,14 @@ import java.util.List;
  */
 public class DescontoDAO {
 
-    private ArrayList<Desconto> descontos;
+    private ArrayList<DescontoModel> descontos;
     private static DescontoDAO instance;
 
     private DescontoDAO() {
         descontos = new ArrayList<>();
-        descontos.add(new Desconto("Promoção de Natal", 3));
-        descontos.add(new Desconto("Desconto por tipo de produto (Papelaria)", 1));
-        descontos.add(new Desconto("Desconto incentivo educação (Lápis)", 0.5));
+        descontos.add(new DescontoModel("Promoção de Natal", 3));
+        descontos.add(new DescontoModel("Desconto por tipo de produto (Papelaria)", 1));
+        descontos.add(new DescontoModel("Desconto incentivo educação (Lápis)", 0.5));
     }
 
     public static DescontoDAO getInstance() {
@@ -32,7 +32,7 @@ public class DescontoDAO {
         return instance;
     }
 
-    public void adicionaDesconto(Desconto desconto) {
+    public void adicionaDesconto(DescontoModel desconto) {
         if (!this.getDescontos().contains(desconto)) {
             this.descontos.add(desconto);
         } else {
@@ -40,7 +40,7 @@ public class DescontoDAO {
         }
     }
 
-    public void removeDesconto(Desconto desconto) {
+    public void removeDesconto(DescontoModel desconto) {
         if (this.getDescontos().contains(desconto)) {
             this.descontos.remove(desconto);
         } else {
@@ -48,8 +48,8 @@ public class DescontoDAO {
         }
     }
 
-    public Desconto buscaDescontoPorNome(String nome) {
-        for (Desconto desconto : descontos) {
+    public DescontoModel buscaDescontoPorNome(String nome) {
+        for (DescontoModel desconto : descontos) {
             if (desconto.getTipo().equalsIgnoreCase(nome)) {
                 return desconto;
             }
@@ -57,7 +57,7 @@ public class DescontoDAO {
         throw new RuntimeException("Desconto " + nome + " não encontrado!");
     }
 
-    public List<Desconto> getDescontos() {
+    public List<DescontoModel> getDescontos() {
         return Collections.unmodifiableList(this.descontos);
     }
 

@@ -8,31 +8,23 @@ package com.gqs.tf_gqualidade.model;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class Desconto {
-    private String tipo;
-    private double valorDesconto;
+public class ImpostoModel {
+    private String nome;
     private double percentual;
+    private double valor;
 
-    public Desconto(String tipo, double percentual) {
-        this.tipo = tipo;
+    public ImpostoModel(String nome, double percentual) {
+        this.nome = nome;
         this.percentual = percentual;
-        this.valorDesconto = 0;
+        this.valor = 0;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public double getValorDesconto() {
-        return valorDesconto;
-    }
-
-    public void setValorDesconto(double valorDesconto) {
-        this.valorDesconto = valorDesconto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getPercentual() {
@@ -41,6 +33,14 @@ public class Desconto {
 
     public void setPercentual(double percentual) {
         this.percentual = percentual;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
     
 }

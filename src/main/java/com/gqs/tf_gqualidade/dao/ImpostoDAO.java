@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.dao;
 
-import com.gqs.tf_gqualidade.model.Imposto;
+import com.gqs.tf_gqualidade.model.ImpostoModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,13 +15,13 @@ import java.util.List;
  */
 public class ImpostoDAO {
 
-    private ArrayList<Imposto> impostos;
+    private ArrayList<ImpostoModel> impostos;
     private static ImpostoDAO instance;
 
     private ImpostoDAO() {
         impostos = new ArrayList<>();
-        impostos.add(new Imposto("ISS", 2));
-        impostos.add(new Imposto("ICMS", 7));
+        impostos.add(new ImpostoModel("ISS", 2));
+        impostos.add(new ImpostoModel("ICMS", 7));
     }
 
     public static ImpostoDAO getInstance() {
@@ -31,7 +31,7 @@ public class ImpostoDAO {
         return instance;
     }
 
-    public void adicionaImposto(Imposto imposto) {
+    public void adicionaImposto(ImpostoModel imposto) {
         if (!this.getImpostos().contains(imposto)) {
             this.impostos.add(imposto);
         } else {
@@ -39,7 +39,7 @@ public class ImpostoDAO {
         }
     }
 
-    public void removeImposto(Imposto imposto) {
+    public void removeImposto(ImpostoModel imposto) {
         if (this.getImpostos().contains(imposto)) {
             this.impostos.remove(imposto);
         } else {
@@ -47,8 +47,8 @@ public class ImpostoDAO {
         }
     }
 
-    public Imposto buscaImpostoPorNome(String nome) {
-        for (Imposto imposto : impostos) {
+    public ImpostoModel buscaImpostoPorNome(String nome) {
+        for (ImpostoModel imposto : impostos) {
             if (imposto.getNome().equalsIgnoreCase(nome)) {
                 return imposto;
             }
@@ -56,7 +56,7 @@ public class ImpostoDAO {
         throw new RuntimeException("Imposto " + nome + " não encontrado!");
     }
 
-    public List<Imposto> getImpostos() {
+    public List<ImpostoModel> getImpostos() {
         return Collections.unmodifiableList(this.impostos);
     }
 

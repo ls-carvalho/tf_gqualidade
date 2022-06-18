@@ -4,7 +4,7 @@
  */
 package com.gqs.tf_gqualidade.dao;
 
-import com.gqs.tf_gqualidade.model.Pedido;
+import com.gqs.tf_gqualidade.model.PedidoModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class PedidoDAO {
 
-    private ArrayList<Pedido> pedidos;
+    private ArrayList<PedidoModel> pedidos;
     private static PedidoDAO instance;
 
     private PedidoDAO() {
@@ -29,13 +29,13 @@ public class PedidoDAO {
         return instance;
     }
 
-    public void adicionaPedido(Pedido pedido) {
+    public void adicionaPedido(PedidoModel pedido) {
         //valida campos
         pedidos.add(pedido);
     }
 
-    public Pedido buscaPedidoPorNumero(int numero) {
-        for (Pedido pedido : pedidos) {
+    public PedidoModel buscaPedidoPorNumero(int numero) {
+        for (PedidoModel pedido : pedidos) {
             if (pedido.getNumero() == numero) {
                 return pedido;
             }
@@ -43,7 +43,7 @@ public class PedidoDAO {
         throw new RuntimeException("Pedido com o número " + numero + " não encontrado!");
     }
 
-    public List<Pedido> getPedidos() {
+    public List<PedidoModel> getPedidos() {
         return Collections.unmodifiableList(pedidos);
     }
 
