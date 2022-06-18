@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Business b = new Business();
         
-        b.criarPedido();//crio o pedido no estágio de 'Novo'
+        b.criarPedido("Fulano de Tal");//crio o pedido para o cliente 'Fulano de Tal' no estágio de 'Novo'
         
         b.getPedido().getEstado().incluir(1, 2);//incluo produtos
         b.getPedido().getEstado().incluir(1, 1);//incluo produtos
