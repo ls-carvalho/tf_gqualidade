@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProdutoDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tf_gqualidade</a> &gt; <a href="index.source.html" class="el_package">com.gqs.tf_gqualidade.dao</a> &gt; <span class="el_source">ProdutoDAO.java</span></div><h1>ProdutoDAO.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.gqs.tf_gqualidade.dao;
+
+import com.gqs.tf_gqualidade.model.ProdutoModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ *
+ * @author Lucas dos Santos Carvalho
+ */
+public class ProdutoDAO {
+
+    private ArrayList&lt;ProdutoModel&gt; produtos;
+    private static ProdutoDAO instance;
+
+<span class="nc" id="L21">    private ProdutoDAO() {</span>
+<span class="nc" id="L22">        produtos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L23">        produtos.add(new ProdutoModel(1, &quot;Achocolatado em Pó&quot;, 6, 11.99));</span>
+<span class="nc" id="L24">        produtos.add(new ProdutoModel(2, &quot;Açúcar Refinado&quot;, 15, 29.9));</span>
+<span class="nc" id="L25">        produtos.add(new ProdutoModel(3, &quot;Arroz Agulhinha Tipo 1&quot;, 8, 24.10));</span>
+<span class="nc" id="L26">        produtos.add(new ProdutoModel(4, &quot;Biscoito Recheado (Sabores)&quot;, 5, 3.78));</span>
+<span class="nc" id="L27">        produtos.add(new ProdutoModel(5, &quot;Biscoito Cream Cracker&quot;, 15, 4.95));</span>
+<span class="nc" id="L28">        produtos.add(new ProdutoModel(6, &quot;Café Torrado e Moído&quot;, 7, 19.50));</span>
+<span class="nc" id="L29">        produtos.add(new ProdutoModel(7, &quot;Creme de Leite&quot;, 13, 2.65));</span>
+<span class="nc" id="L30">        produtos.add(new ProdutoModel(8, &quot;Ervilha em Conserva&quot;, 9, 19.30));</span>
+<span class="nc" id="L31">        produtos.add(new ProdutoModel(9, &quot;Farinha de Trigo&quot;, 7, 3.55));</span>
+<span class="nc" id="L32">        produtos.add(new ProdutoModel(10, &quot;Farinha de Mandioca Temperada&quot;, 6, 2.70));</span>
+<span class="nc" id="L33">        produtos.add(new ProdutoModel(11, &quot;Feijão Carioca Tipo 1&quot;, 6, 6.65));</span>
+<span class="nc" id="L34">        produtos.add(new ProdutoModel(12, &quot;Fubá Mimoso&quot;, 14, 3.71));</span>
+<span class="nc" id="L35">        produtos.add(new ProdutoModel(13, &quot;Leite em Pó Integral&quot;, 5, 25.79));</span>
+<span class="nc" id="L36">        produtos.add(new ProdutoModel(14, &quot;Macarrão Espaguete&quot;, 13, 3.15));</span>
+<span class="nc" id="L37">        produtos.add(new ProdutoModel(15, &quot;Macarrão Parafuso&quot;, 10, 5.95));</span>
+<span class="nc" id="L38">        produtos.add(new ProdutoModel(16, &quot;Mistura para Bolo (Sabores)&quot;, 12, 41.10));</span>
+<span class="nc" id="L39">        produtos.add(new ProdutoModel(17, &quot;Óleo de Soja&quot;, 13, 7.89));</span>
+<span class="nc" id="L40">        produtos.add(new ProdutoModel(18, &quot;Pó para Gelatina (Sabores)&quot;, 5, 1.45));</span>
+<span class="nc" id="L41">        produtos.add(new ProdutoModel(19, &quot;Polpa de Tomate&quot;, 5, 33.95));</span>
+<span class="nc" id="L42">        produtos.add(new ProdutoModel(20, &quot;Sal Refinado&quot;, 7, 1.29));</span>
+<span class="nc" id="L43">        produtos.add(new ProdutoModel(21, &quot;Sardinha&quot;, 12, 18.80));</span>
+<span class="nc" id="L44">        produtos.add(new ProdutoModel(22, &quot;Tempero Completo/ Alho e Sal&quot;, 15, 2.57));</span>
+<span class="nc" id="L45">        produtos.add(new ProdutoModel(23, &quot;Amaciante Líquido (Fragrâncias)&quot;, 5, 10.48));</span>
+<span class="nc" id="L46">        produtos.add(new ProdutoModel(24, &quot;Creme Dental&quot;, 9, 1.30));</span>
+<span class="nc" id="L47">        produtos.add(new ProdutoModel(25, &quot;Desinfetante (Fragrâncias)&quot;, 10, 27.99));</span>
+<span class="nc" id="L48">        produtos.add(new ProdutoModel(26, &quot;Papel Higiênico&quot;, 14, 11.19));</span>
+<span class="nc" id="L49">        produtos.add(new ProdutoModel(27, &quot;Sabonete (Fragrâncias)&quot;, 11, 1.89));</span>
+<span class="nc" id="L50">        produtos.add(new ProdutoModel(28, &quot;1 KG de Carne Bovina&quot;, 11, 31.89));</span>
+<span class="nc" id="L51">        produtos.add(new ProdutoModel(29, &quot;1 KG de Carne Suína&quot;, 11, 21.39));</span>
+<span class="nc" id="L52">        produtos.add(new ProdutoModel(30, &quot;1 KG de Carne de Frango&quot;, 11, 14.39));</span>
+<span class="nc" id="L53">        produtos.add(new ProdutoModel(31, &quot;1 dúzia de ovos&quot;, 16, 7.19));</span>
+<span class="nc" id="L54">        produtos.add(new ProdutoModel(32, &quot;Leite Integral UHT 1 Litro&quot;, 100, 3.69));</span>
+<span class="nc" id="L55">        produtos.add(new ProdutoModel(33, &quot;Manteiga com Sal 100G&quot;, 32, 4.98));</span>
+<span class="nc" id="L56">        produtos.add(new ProdutoModel(34, &quot;1 Kg Pão Francês&quot;, 20, 7.00));</span>
+<span class="nc" id="L57">        produtos.add(new ProdutoModel(35, &quot;1 Kg batata&quot;, 200, 1.71));</span>
+<span class="nc" id="L58">        produtos.add(new ProdutoModel(36, &quot;1 Kg tomate&quot;, 120, 6.00));</span>
+<span class="nc" id="L59">        produtos.add(new ProdutoModel(37, &quot;1 dúzia de banana&quot;, 20, 2.50));</span>
+<span class="nc" id="L60">        produtos.add(new ProdutoModel(38, &quot;Agua Sanitária 1 Litro&quot;, 15, 3.09));</span>
+<span class="nc" id="L61">        produtos.add(new ProdutoModel(39, &quot;Detergente Liquido&quot;, 30, 2.04));</span>
+<span class="nc" id="L62">        produtos.add(new ProdutoModel(40, &quot;Lã de Aço&quot;, 12, 1.50));</span>
+<span class="nc" id="L63">        produtos.add(new ProdutoModel(41, &quot;Sabão em Pedra 200G&quot;, 20, 10.15));</span>
+<span class="nc" id="L64">        produtos.add(new ProdutoModel(42, &quot;Sabão em Pó Triplação 450G&quot;, 9, 6.19));</span>
+<span class="nc" id="L65">    }</span>
+
+    public static ProdutoDAO getInstance() {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L69">            instance = new ProdutoDAO();</span>
+        }
+<span class="nc" id="L71">        return instance;</span>
+    }
+
+    private void verificaQuantidade(double quantidade) {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (quantidade &lt;= 0) {</span>
+<span class="nc" id="L76">            throw new RuntimeException(&quot;Quantidade deve ser &gt; 0&quot;);</span>
+        }
+<span class="nc" id="L78">    }</span>
+
+    public void adicionaEstoque(int codigo, double quantidade) {
+<span class="nc" id="L81">        verificaQuantidade(quantidade);</span>
+<span class="nc" id="L82">        ProdutoModel produto = buscaProdutoPorCodigo(codigo);</span>
+<span class="nc" id="L83">        produto.incrementaEstoque(quantidade);</span>
+<span class="nc" id="L84">    }</span>
+
+    private double getQuantidadeEmEstoque(int codigo) {
+<span class="nc" id="L87">        return buscaProdutoPorCodigo(codigo).getQuantidadeEmEstoque();</span>
+    }
+
+    public void baixaEstoque(int codigo, double quantidade) {
+<span class="nc" id="L91">        verificaQuantidade(quantidade);</span>
+<span class="nc" id="L92">        ProdutoModel produto = buscaProdutoPorCodigo(codigo);</span>
+<span class="nc" id="L93">        double quantidadeEmEstoque = getQuantidadeEmEstoque(codigo);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (quantidadeEmEstoque &gt;= quantidade) {</span>
+<span class="nc" id="L95">            produto.decrementaEstoque(quantidade);</span>
+        } else {
+<span class="nc" id="L97">            throw new RuntimeException(&quot;Quantiade (&quot; + quantidade + &quot;) do produto &quot; + codigo + &quot;insuficiente em estoque (&quot; + quantidadeEmEstoque + &quot;)&quot;);</span>
+        }
+
+<span class="nc" id="L100">    }</span>
+
+    public ProdutoModel buscaProdutoPorNome(String nome) {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (ProdutoModel produto : produtos) {</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (produto.getNome().equalsIgnoreCase(nome)) {</span>
+<span class="nc" id="L105">                return produto;</span>
+            }
+<span class="nc" id="L107">        }</span>
+<span class="nc" id="L108">        throw new RuntimeException(&quot;Produto &quot; + nome + &quot; não encontrado!&quot;);</span>
+    }
+
+    public ProdutoModel buscaProdutoPorCodigo(int codigo) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        for (ProdutoModel produto : produtos) {</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if (produto.getCodigo() == codigo) {</span>
+<span class="nc" id="L114">                return produto;</span>
+            }
+<span class="nc" id="L116">        }</span>
+<span class="nc" id="L117">        throw new RuntimeException(&quot;Produto com o código &quot; + codigo + &quot; não encontrado!&quot;);</span>
+    }
+
+    public List&lt;ProdutoModel&gt; getProdutos() {
+<span class="nc" id="L121">        return Collections.unmodifiableList(produtos);</span>
+    }
+
+    public int getNroProdutos() {
+<span class="nc" id="L125">        return produtos.size();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

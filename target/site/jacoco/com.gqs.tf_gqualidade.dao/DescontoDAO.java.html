@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DescontoDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tf_gqualidade</a> &gt; <a href="index.source.html" class="el_package">com.gqs.tf_gqualidade.dao</a> &gt; <span class="el_source">DescontoDAO.java</span></div><h1>DescontoDAO.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.gqs.tf_gqualidade.dao;
+
+import com.gqs.tf_gqualidade.model.DescontoModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ *
+ * @author Lucas dos Santos Carvalho
+ */
+public class DescontoDAO {
+
+    private ArrayList&lt;DescontoModel&gt; descontos;
+    private static DescontoDAO instance;
+
+<span class="nc" id="L21">    private DescontoDAO() {</span>
+<span class="nc" id="L22">        descontos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L23">        descontos.add(new DescontoModel(&quot;Promoção de Natal&quot;, 3));</span>
+<span class="nc" id="L24">        descontos.add(new DescontoModel(&quot;Desconto por tipo de produto (Papelaria)&quot;, 1));</span>
+<span class="nc" id="L25">        descontos.add(new DescontoModel(&quot;Desconto incentivo educação (Lápis)&quot;, 0.5));</span>
+<span class="nc" id="L26">    }</span>
+
+    public static DescontoDAO getInstance() {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L30">            instance = new DescontoDAO();</span>
+        }
+<span class="nc" id="L32">        return instance;</span>
+    }
+
+    public void adicionaDesconto(DescontoModel desconto) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (!this.getDescontos().contains(desconto)) {</span>
+<span class="nc" id="L37">            this.descontos.add(desconto);</span>
+        } else {
+<span class="nc" id="L39">            throw new RuntimeException(&quot;Desconto &quot; + desconto.getTipo()+ &quot; já existente na lista!&quot;);</span>
+        }
+<span class="nc" id="L41">    }</span>
+
+    public void removeDesconto(DescontoModel desconto) {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (this.getDescontos().contains(desconto)) {</span>
+<span class="nc" id="L45">            this.descontos.remove(desconto);</span>
+        } else {
+<span class="nc" id="L47">            throw new RuntimeException(&quot;Desconto &quot; + desconto.getTipo() + &quot; não existente na lista!&quot;);</span>
+        }
+<span class="nc" id="L49">    }</span>
+
+    public DescontoModel buscaDescontoPorNome(String nome) {
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        for (DescontoModel desconto : descontos) {</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (desconto.getTipo().equalsIgnoreCase(nome)) {</span>
+<span class="nc" id="L54">                return desconto;</span>
+            }
+<span class="nc" id="L56">        }</span>
+<span class="nc" id="L57">        throw new RuntimeException(&quot;Desconto &quot; + nome + &quot; não encontrado!&quot;);</span>
+    }
+
+    public List&lt;DescontoModel&gt; getDescontos() {
+<span class="nc" id="L61">        return Collections.unmodifiableList(this.descontos);</span>
+    }
+
+    public int getNroDescontos() {
+<span class="nc" id="L65">        return this.descontos.size();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
