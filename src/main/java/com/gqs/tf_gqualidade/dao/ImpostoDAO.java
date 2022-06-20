@@ -31,36 +31,8 @@ public class ImpostoDAO {
         return instance;
     }
 
-    public void adicionaImposto(ImpostoModel imposto) {
-        if (!this.getImpostos().contains(imposto)) {
-            this.impostos.add(imposto);
-        } else {
-            throw new RuntimeException("Imposto " + imposto.getNome() + " já existente na lista!");
-        }
-    }
-
-    public void removeImposto(ImpostoModel imposto) {
-        if (this.getImpostos().contains(imposto)) {
-            this.impostos.remove(imposto);
-        } else {
-            throw new RuntimeException("Imposto " + imposto.getNome() + " não existente na lista!");
-        }
-    }
-
-    public ImpostoModel buscaImpostoPorNome(String nome) {
-        for (ImpostoModel imposto : impostos) {
-            if (imposto.getNome().equalsIgnoreCase(nome)) {
-                return imposto;
-            }
-        }
-        throw new RuntimeException("Imposto " + nome + " não encontrado!");
-    }
-
     public List<ImpostoModel> getImpostos() {
         return Collections.unmodifiableList(this.impostos);
     }
 
-    public int getNroImpostos() {
-        return this.impostos.size();
-    }
 }
