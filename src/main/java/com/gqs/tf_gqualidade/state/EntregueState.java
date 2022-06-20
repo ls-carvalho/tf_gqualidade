@@ -20,10 +20,10 @@ public class EntregueState extends State {
     @Override
     public void concluir() {
         //aprova a operação
-        System.out.println("Operação aprovada!");
+        //System.out.println("Operação aprovada!");
         //avaliação do cliente
         AvaliacaoUtil.avaliacao();
         //pedido finalizado
-        System.out.println("Pedido Finalizado!");
+        //System.out.println("Pedido Finalizado!");
     }
 }

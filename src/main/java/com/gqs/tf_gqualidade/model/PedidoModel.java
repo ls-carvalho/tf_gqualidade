@@ -97,11 +97,12 @@ public class PedidoModel {
     }
 
     public void esvaziarListaItens() {
-        if (this.getItens().isEmpty()) {
+        if (!this.getItens().isEmpty()) {
+            for (ItemDePedidoModel idp : this.getItens()) {
+                this.removerItem(idp, idp.getQuantidade());
+            }
+        }else{
             throw new RuntimeException("Não se pode esvaziar uma lista de produtos vazia!");
-        }
-        for (ItemDePedidoModel idp : this.getItens()) {
-            this.removerItem(idp, idp.getQuantidade());
         }
     }
 
@@ -185,8 +186,8 @@ public class PedidoModel {
         return itens;
     }
 
-    public void alterarState(State estado) {
-        this.estado = estado;
+    public void alterarState(State novoEstado) {
+        this.estado = novoEstado;
     }
 
     public State getEstado() {

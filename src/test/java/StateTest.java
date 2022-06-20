@@ -5,15 +5,18 @@
 
 import com.gqs.tf_gqualidade.business.Business;
 import com.gqs.tf_gqualidade.state.AguardandoPagamentoState;
+import com.gqs.tf_gqualidade.state.CanceladoPeloClienteState;
+import com.gqs.tf_gqualidade.state.CanceladoPeloEstabelecimentoState;
 import com.gqs.tf_gqualidade.state.ConfirmadoState;
 import com.gqs.tf_gqualidade.state.EmRotaDeEntregaState;
 import com.gqs.tf_gqualidade.state.EntregueState;
 import com.gqs.tf_gqualidade.state.NovoState;
 import com.gqs.tf_gqualidade.state.ProntoParaEntregaState;
-import junit.framework.TestCase;
+import com.gqs.tf_gqualidade.state.ReembolsadoState;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,29 +24,25 @@ import org.junit.jupiter.api.Test;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class StateTest extends TestCase {
+public class StateTest {
 
-    private static final Business b = new Business();
+    private static Business b;
 
     @BeforeAll
     public static void antes() throws Exception {
-        b.criarPedido("Fulano de Tal");
-        b.getPedido().getEstado().incluir(1, 2);
-        b.getPedido().getEstado().incluir(1, 1);
-        b.getPedido().getEstado().incluir(13, 1);
-        b.getPedido().getEstado().incluir(1);
+
     }
 
-    /*
     @BeforeEach
-    public void antesDeCada() {
-
+    public void antesDeCada() throws Exception {
+        b = new Business();
+        b.criarPedido("Fulano de Tal");
     }
-    */
-    
+
     @Test
-    @DisplayName("Criação do Pedido")
-    void CT001() {
+    @DisplayName("Pedido Criado - Entregue")
+    public void CT001() throws Exception {
+        b.getPedido().getEstado().incluir(1, 1);
         assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
         b.getPedido().getEstado().concluir();
         assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
@@ -58,4 +57,76 @@ public class StateTest extends TestCase {
         b.getPedido().getEstado().concluir();
     }
 
+    @Test
+    @DisplayName("Pedido Criado - Cancelado pelo Cliente")
+    public void CT002() throws Exception {
+        b.getPedido().getEstado().incluir(15, 1);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().cancelar();
+        assertThat(b.getPedido().getEstado(), instanceOf(CanceladoPeloClienteState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ReembolsadoState.class));
+        b.getPedido().getEstado().concluir();
+    }
+
+    @Test
+    @DisplayName("Aguardando Pagamento - Cancelado Pelo Cliente")
+    public void CT003() throws Exception {
+        b.getPedido().getEstado().incluir(30, 1);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
+        b.getPedido().getEstado().cancelar();
+        assertThat(b.getPedido().getEstado(), instanceOf(CanceladoPeloClienteState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ReembolsadoState.class));
+        b.getPedido().getEstado().concluir();
+    }
+
+    @Test
+    @DisplayName("Confirmado - Cancelado Pelo Estabelecimento")
+    public void CT004() throws Exception {
+        b.getPedido().getEstado().incluir(40, 1);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ConfirmadoState.class));
+        b.getPedido().getEstado().cancelar();
+        assertThat(b.getPedido().getEstado(), instanceOf(CanceladoPeloEstabelecimentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ReembolsadoState.class));
+        b.getPedido().getEstado().concluir();
+    }
+
+    @Test
+    @DisplayName("Pronto Para Entrega - Cancelado Pelo Estabelecimento")
+    public void CT005() throws Exception {
+        b.getPedido().getEstado().incluir(5, 1);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ConfirmadoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ProntoParaEntregaState.class));
+        b.getPedido().getEstado().cancelar();
+        assertThat(b.getPedido().getEstado(), instanceOf(CanceladoPeloEstabelecimentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ReembolsadoState.class));
+        b.getPedido().getEstado().concluir();
+    }
+    /*
+    @Test
+    @DisplayName("Inclusão - Remoção")
+    public void CT006() throws Exception {
+        b.getPedido().getEstado().incluir(1, 1);
+        b.getPedido().getEstado().incluir(13, 1);
+        b.getPedido().getEstado().incluir(1);
+        b.getPedido().getEstado().incluir(2);
+        b.getPedido().getCesta().contains(b)
+        b.getPedido().getEstado().remover(1);
+        b.getPedido().getEstado().remover(2);
+    }
+     */
 }

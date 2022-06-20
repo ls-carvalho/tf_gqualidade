@@ -16,15 +16,15 @@ public class AvaliacaoUtil {
     }
     
     public static void avaliacao() {
-        System.out.println("Por favor, avalie o Atendimento do Pedido entre 1 e 5.");
+        //System.out.println("Por favor, avalie o Atendimento do Pedido entre 1 e 5.");
         int avaliacao;
         try ( var sc = new Scanner(System.in)) {
             do {
-                System.out.println("Insira um número de 1 a 5!");
+                //System.out.println("Insira um número de 1 a 5!");
                 //avaliacao = sc.nextInt(); //removido pra testes
                 avaliacao = 5;
             } while (avaliacao < 1 || avaliacao > 5);
         }
-        System.out.println("Avaliação final do usuário: " + avaliacao + "!");
+        //System.out.println("Avaliação final do usuário: " + avaliacao + "!");
     }
 }
