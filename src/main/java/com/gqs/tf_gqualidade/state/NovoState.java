@@ -5,7 +5,7 @@
 package com.gqs.tf_gqualidade.state;
 
 import com.gqs.tf_gqualidade.builder.BasicaBuilder;
-import com.gqs.tf_gqualidade.builder.EconimicaBuilder;
+import com.gqs.tf_gqualidade.builder.EconomicaBuilder;
 import com.gqs.tf_gqualidade.builder.EmpacotadorBuilder;
 import com.gqs.tf_gqualidade.builder.ICestaBuilder;
 import com.gqs.tf_gqualidade.builder.TopBuilder;
@@ -63,7 +63,7 @@ public class NovoState extends State {
             case 1: {
                 //Cesta Economica
                 tipo = "Econômica";
-                ICestaBuilder builder = new EconimicaBuilder();
+                ICestaBuilder builder = new EconomicaBuilder();
                 EmpacotadorBuilder empacotador = new EmpacotadorBuilder(builder);
                 empacotador.empacotarCesta();
                 itens = builder.getItens();
@@ -122,7 +122,7 @@ public class NovoState extends State {
             case 1: {
                 //Cesta Economica
                 tipo = "Econômica";
-                ICestaBuilder builder = new EconimicaBuilder();
+                ICestaBuilder builder = new EconomicaBuilder();
                 EmpacotadorBuilder empacotador = new EmpacotadorBuilder(builder);
                 empacotador.empacotarCesta();
                 itens = builder.getItens();

@@ -34,19 +34,6 @@ public class PedidoDAO {
         pedidos.add(pedido);
     }
 
-    public PedidoModel buscaPedidoPorNumero(int numero) {
-        for (PedidoModel pedido : pedidos) {
-            if (pedido.getNumero() == numero) {
-                return pedido;
-            }
-        }
-        throw new RuntimeException("Pedido com o número " + numero + " não encontrado!");
-    }
-
-    public List<PedidoModel> getPedidos() {
-        return Collections.unmodifiableList(pedidos);
-    }
-
     public int getNroPedidos() {
         return pedidos.size();
     }

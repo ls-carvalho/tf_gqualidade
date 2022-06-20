@@ -99,8 +99,26 @@ public class PedidoModel {
     public void esvaziarListaItens() {
         if (!this.getItens().isEmpty()) {
             for (ItemDePedidoModel idp : this.getItens()) {
-                this.removerItem(idp, idp.getQuantidade());
+            	if (!this.getItens().contains(idp)) {
+            		throw new RuntimeException("Produto com o código " + idp.getProduto().getCodigo() + " não encontrado na lista de itens!");
+                }
             }
+            for (ItemDePedidoModel idp : this.getItens()) {
+            	if (this.buscaItemPorProdutoItens(idp.getProduto()).getQuantidade() == idp.getQuantidade()) {
+                    //remove o valor a conta
+                    this.valorTotal -= idp.getProduto().getPrecoUnitario() * idp.getQuantidade();
+                    calculaValores();
+                } else if (this.buscaItemPorProdutoItens(idp.getProduto()).getQuantidade() > idp.getQuantidade()) {
+                    this.buscaItemPorProdutoItens(idp.getProduto()).diminuirQuantidade(idp.getQuantidade());
+                    //remove o valor a conta
+                    this.valorTotal -= idp.getProduto().getPrecoUnitario() * idp.getQuantidade();
+                    calculaValores();
+                } else if (this.buscaItemPorProdutoItens(idp.getProduto()).getQuantidade() < idp.getQuantidade()) {
+                    throw new RuntimeException("Não é possivel remover mais produtos do tipo " + idp.getProduto().getNome() + "do que constam na lista!");
+                }
+            }
+            this.getItens().clear();
+            //this.removerItem(idp, idp.getQuantidade());
         }else{
             throw new RuntimeException("Não se pode esvaziar uma lista de produtos vazia!");
         }

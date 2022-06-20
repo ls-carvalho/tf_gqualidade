@@ -32,36 +32,8 @@ public class DescontoDAO {
         return instance;
     }
 
-    public void adicionaDesconto(DescontoModel desconto) {
-        if (!this.getDescontos().contains(desconto)) {
-            this.descontos.add(desconto);
-        } else {
-            throw new RuntimeException("Desconto " + desconto.getTipo()+ " já existente na lista!");
-        }
-    }
-
-    public void removeDesconto(DescontoModel desconto) {
-        if (this.getDescontos().contains(desconto)) {
-            this.descontos.remove(desconto);
-        } else {
-            throw new RuntimeException("Desconto " + desconto.getTipo() + " não existente na lista!");
-        }
-    }
-
-    public DescontoModel buscaDescontoPorNome(String nome) {
-        for (DescontoModel desconto : descontos) {
-            if (desconto.getTipo().equalsIgnoreCase(nome)) {
-                return desconto;
-            }
-        }
-        throw new RuntimeException("Desconto " + nome + " não encontrado!");
-    }
-
     public List<DescontoModel> getDescontos() {
         return Collections.unmodifiableList(this.descontos);
     }
 
-    public int getNroDescontos() {
-        return this.descontos.size();
-    }
 }

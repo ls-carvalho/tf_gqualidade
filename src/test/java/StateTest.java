@@ -17,6 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -116,17 +117,62 @@ public class StateTest {
         assertThat(b.getPedido().getEstado(), instanceOf(ReembolsadoState.class));
         b.getPedido().getEstado().concluir();
     }
-    /*
+    
     @Test
-    @DisplayName("Inclusão - Remoção")
+    @DisplayName("Cesta Econômica")
     public void CT006() throws Exception {
         b.getPedido().getEstado().incluir(1, 1);
-        b.getPedido().getEstado().incluir(13, 1);
         b.getPedido().getEstado().incluir(1);
-        b.getPedido().getEstado().incluir(2);
-        b.getPedido().getCesta().contains(b)
-        b.getPedido().getEstado().remover(1);
-        b.getPedido().getEstado().remover(2);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ConfirmadoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ProntoParaEntregaState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(EmRotaDeEntregaState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(EntregueState.class));
+        b.getPedido().getEstado().concluir();
     }
-     */
+    
+    @Test
+    @DisplayName("Cesta Básica")
+    public void CT007() throws Exception {
+        b.getPedido().getEstado().incluir(1, 1);
+        b.getPedido().getEstado().incluir(2);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ConfirmadoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ProntoParaEntregaState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(EmRotaDeEntregaState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(EntregueState.class));
+        b.getPedido().getEstado().concluir();
+    }
+    
+    @Test
+    @DisplayName("Cesta TOP")
+    public void CT008() throws Exception {
+        b.getPedido().getEstado().incluir(1, 1);
+        b.getPedido().getEstado().incluir(3);
+        assertThat(b.getPedido().getEstado(), instanceOf(NovoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(AguardandoPagamentoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ConfirmadoState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(ProntoParaEntregaState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(EmRotaDeEntregaState.class));
+        b.getPedido().getEstado().concluir();
+        assertThat(b.getPedido().getEstado(), instanceOf(EntregueState.class));
+        b.getPedido().getEstado().concluir();
+    }
+    
 }

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class EconimicaBuilder implements ICestaBuilder {
+public class EconomicaBuilder implements ICestaBuilder {
 
     private List<ItemDePedidoModel> itens = new ArrayList<>();
 
