@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PedidoModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tf_gqualidade</a> &gt; <a href="index.source.html" class="el_package">com.gqs.tf_gqualidade.model</a> &gt; <span class="el_source">PedidoModel.java</span></div><h1>PedidoModel.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.gqs.tf_gqualidade.model;
+
+import com.gqs.tf_gqualidade.dao.DescontoDAO;
+import com.gqs.tf_gqualidade.dao.ImpostoDAO;
+import com.gqs.tf_gqualidade.dao.PedidoDAO;
+import com.gqs.tf_gqualidade.state.NovoState;
+import com.gqs.tf_gqualidade.state.State;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Lucas dos Santos Carvalho
+ */
+public class PedidoModel {
+
+    private int numero;
+    private LocalDateTime data;
+    private double valorTotal;
+    private double valorTotalImpostos;
+    private double valorFinalAPagar;
+    private double valorTotalDescontos;
+    private State estado;
+    private List&lt;ItemDePedidoModel&gt; cesta;
+    private List&lt;ItemDePedidoModel&gt; itens;
+    private List&lt;ImpostoModel&gt; impostos;
+    private List&lt;DescontoModel&gt; descontos;
+    private ClienteModel cliente;
+
+<span class="nc" id="L35">    public PedidoModel(ClienteModel cliente) {</span>
+<span class="nc" id="L36">        this.numero = PedidoDAO.getInstance().getNroPedidos() + 1;</span>
+<span class="nc" id="L37">        this.data = LocalDateTime.now();</span>
+<span class="nc" id="L38">        this.valorTotal = 0;</span>
+<span class="nc" id="L39">        this.valorTotalImpostos = 0;</span>
+<span class="nc" id="L40">        this.valorFinalAPagar = 0;</span>
+<span class="nc" id="L41">        this.valorTotalDescontos = 0;</span>
+<span class="nc" id="L42">        this.estado = new NovoState(this);</span>
+<span class="nc" id="L43">        this.cesta = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L44">        this.itens = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L45">        this.impostos = ImpostoDAO.getInstance().getImpostos();</span>
+<span class="nc" id="L46">        this.descontos = DescontoDAO.getInstance().getDescontos();</span>
+<span class="nc" id="L47">        this.cliente = cliente;</span>
+<span class="nc" id="L48">    }</span>
+
+    public void adicionarCesta(List&lt;ItemDePedidoModel&gt; cesta) {
+        //adiciona a cesta na lista
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        for (var item : cesta) { //this.getCesta().addAll(cesta);</span>
+<span class="nc" id="L53">            this.getCesta().add(item);</span>
+            //adiciona o valor a conta
+<span class="nc" id="L55">            this.valorTotal += item.getProduto().getPrecoUnitario() * item.getQuantidade();</span>
+<span class="nc" id="L56">        }</span>
+<span class="nc" id="L57">        calculaValores();</span>
+<span class="nc" id="L58">    }</span>
+
+    public void removerCesta(List&lt;ItemDePedidoModel&gt; cesta) {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        for (var item : cesta) {</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">            if (!this.getCesta().contains(item)) {</span>
+<span class="nc" id="L63">                throw new RuntimeException(&quot;Esse pedido não contém essa cesta!&quot;);</span>
+            }
+<span class="nc" id="L65">        }</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (var item : cesta) {</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            if (this.buscaItemPorProdutoCesta(item.getProduto()).getQuantidade() == item.getQuantidade()) {</span>
+<span class="nc" id="L68">                this.getCesta().remove(item);</span>
+                //remove o valor da conta
+<span class="nc" id="L70">                this.valorTotal -= item.getProduto().getPrecoUnitario() * item.getQuantidade();</span>
+<span class="nc" id="L71">                calculaValores();</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            } else if (this.buscaItemPorProdutoCesta(item.getProduto()).getQuantidade() &gt; item.getQuantidade()) {</span>
+<span class="nc" id="L73">                this.buscaItemPorProdutoCesta(item.getProduto()).diminuirQuantidade(item.getQuantidade());</span>
+                //remove o valor a conta
+<span class="nc" id="L75">                this.valorTotal -= item.getProduto().getPrecoUnitario() * item.getQuantidade();</span>
+<span class="nc" id="L76">                calculaValores();</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">            } else if (this.buscaItemPorProdutoCesta(item.getProduto()).getQuantidade() &lt; item.getQuantidade()) {</span>
+<span class="nc" id="L78">                throw new RuntimeException(&quot;Não é possivel remover mais produtos do tipo &quot; + item.getProduto().getNome() + &quot;do que constam na cesta!&quot;);</span>
+            }
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">    }</span>
+
+    public List&lt;ItemDePedidoModel&gt; getCesta() {
+<span class="nc" id="L84">        return cesta;</span>
+    }
+
+    public List&lt;ImpostoModel&gt; getImpostos() {
+<span class="nc" id="L88">        return impostos;</span>
+    }
+
+    public List&lt;DescontoModel&gt; getDescontos() {
+<span class="nc" id="L92">        return descontos;</span>
+    }
+
+    public ClienteModel getCliente() {
+<span class="nc" id="L96">        return cliente;</span>
+    }
+
+    public void esvaziarListaItens() {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (this.getItens().isEmpty()) {</span>
+<span class="nc" id="L101">            throw new RuntimeException(&quot;Não se pode esvaziar uma lista de produtos vazia!&quot;);</span>
+        }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (ItemDePedidoModel idp : this.getItens()) {</span>
+<span class="nc" id="L104">            this.removerItem(idp, idp.getQuantidade());</span>
+<span class="nc" id="L105">        }</span>
+<span class="nc" id="L106">    }</span>
+
+    public void adicionarItem(ItemDePedidoModel item) {
+        //adiciona o item na lista
+<span class="nc" id="L110">        this.getItens().add(item);</span>
+        //adiciona o valor a conta
+<span class="nc" id="L112">        this.valorTotal += item.getProduto().getPrecoUnitario() * item.getQuantidade();</span>
+<span class="nc" id="L113">        calculaValores();</span>
+<span class="nc" id="L114">    }</span>
+
+    private void calculaValores() {
+<span class="nc" id="L117">        this.valorFinalAPagar = this.valorTotal;</span>
+        //calcula os descontos e aplica-os
+<span class="nc" id="L119">        this.valorTotalDescontos += calculaDescontos(valorFinalAPagar);</span>
+<span class="nc" id="L120">        this.valorFinalAPagar -= this.valorTotalDescontos;</span>
+        //calcula os impostos e aplica-os
+<span class="nc" id="L122">        this.valorTotalImpostos += calculaImpostos(valorFinalAPagar);</span>
+<span class="nc" id="L123">        this.valorFinalAPagar += this.valorTotalImpostos;</span>
+<span class="nc" id="L124">    }</span>
+
+    private double calculaDescontos(double valorBase) {
+<span class="nc" id="L127">        var perc = 0;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        for (DescontoModel desconto : this.descontos) {</span>
+<span class="nc" id="L129">            perc += desconto.getPercentual();</span>
+<span class="nc" id="L130">        }</span>
+<span class="nc" id="L131">        return (valorBase * perc) / 100;</span>
+    }
+
+    private double calculaImpostos(double valorBase) {
+<span class="nc" id="L135">        var perc = 0;</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        for (ImpostoModel imposto : this.impostos) {</span>
+<span class="nc" id="L137">            perc += imposto.getPercentual();</span>
+<span class="nc" id="L138">        }</span>
+<span class="nc" id="L139">        return (valorBase * perc) / 100;</span>
+    }
+
+    public ItemDePedidoModel buscaItemPorProdutoCesta(ProdutoModel produto) {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        for (ItemDePedidoModel idp : this.getCesta()) {</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            if (idp.getProduto().getCodigo() == produto.getCodigo()) {</span>
+<span class="nc" id="L145">                return idp;</span>
+            }
+<span class="nc" id="L147">        }</span>
+<span class="nc" id="L148">        throw new RuntimeException(&quot;Produto com o código &quot; + produto.getCodigo() + &quot; não encontrado na lista da cesta!&quot;);</span>
+    }
+
+    public ItemDePedidoModel buscaItemPorProdutoItens(ProdutoModel produto) {
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        for (ItemDePedidoModel idp : this.getItens()) {</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            if (idp.getProduto().getCodigo() == produto.getCodigo()) {</span>
+<span class="nc" id="L154">                return idp;</span>
+            }
+<span class="nc" id="L156">        }</span>
+<span class="nc" id="L157">        throw new RuntimeException(&quot;Produto com o código &quot; + produto.getCodigo() + &quot; não encontrado na lista de itens!&quot;);</span>
+    }
+
+    public void removerItem(ItemDePedidoModel item, double quantidade) {
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (this.getItens().contains(item)) {</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">            if (this.buscaItemPorProdutoItens(item.getProduto()).getQuantidade() == quantidade) {</span>
+<span class="nc" id="L163">                this.getItens().remove(item);</span>
+                //remove o valor a conta
+<span class="nc" id="L165">                this.valorTotal -= item.getProduto().getPrecoUnitario() * item.getQuantidade();</span>
+<span class="nc" id="L166">                calculaValores();</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">            } else if (this.buscaItemPorProdutoItens(item.getProduto()).getQuantidade() &gt; quantidade) {</span>
+<span class="nc" id="L168">                this.buscaItemPorProdutoItens(item.getProduto()).diminuirQuantidade(quantidade);</span>
+                //remove o valor a conta
+<span class="nc" id="L170">                this.valorTotal -= item.getProduto().getPrecoUnitario() * quantidade;</span>
+<span class="nc" id="L171">                calculaValores();</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">            } else if (this.buscaItemPorProdutoItens(item.getProduto()).getQuantidade() &lt; quantidade) {</span>
+<span class="nc" id="L173">                throw new RuntimeException(&quot;Não é possivel remover mais produtos do tipo &quot; + item.getProduto().getNome() + &quot;do que constam na lista!&quot;);</span>
+            }
+        } else {
+<span class="nc" id="L176">            throw new RuntimeException(&quot;Produto com o código &quot; + item.getProduto().getCodigo() + &quot; não encontrado na lista de itens!&quot;);</span>
+        }
+<span class="nc" id="L178">    }</span>
+
+    public int getQuantidadeItens() {
+<span class="nc" id="L181">        return itens.size();</span>
+    }
+
+    public List&lt;ItemDePedidoModel&gt; getItens() {
+<span class="nc" id="L185">        return itens;</span>
+    }
+
+    public void alterarState(State estado) {
+<span class="nc" id="L189">        this.estado = estado;</span>
+<span class="nc" id="L190">    }</span>
+
+    public State getEstado() {
+<span class="nc" id="L193">        return estado;</span>
+    }
+
+    public int getNumero() {
+<span class="nc" id="L197">        return numero;</span>
+    }
+
+    public void setNumero(int numero) {
+<span class="nc" id="L201">        this.numero = numero;</span>
+<span class="nc" id="L202">    }</span>
+
+    public LocalDateTime getData() {
+<span class="nc" id="L205">        return data;</span>
+    }
+
+    public void setData(LocalDateTime data) {
+<span class="nc" id="L209">        this.data = data;</span>
+<span class="nc" id="L210">    }</span>
+
+    public double getValorTotal() {
+<span class="nc" id="L213">        return valorTotal;</span>
+    }
+
+    public void setValorTotal(double valorTotal) {
+<span class="nc" id="L217">        this.valorTotal = valorTotal;</span>
+<span class="nc" id="L218">    }</span>
+
+    public double getValorTotalImpostos() {
+<span class="nc" id="L221">        return valorTotalImpostos;</span>
+    }
+
+    public void setValorTotalImpostos(double valorTotalImpostos) {
+<span class="nc" id="L225">        this.valorTotalImpostos = valorTotalImpostos;</span>
+<span class="nc" id="L226">    }</span>
+
+    public double getValorFinalAPagar() {
+<span class="nc" id="L229">        return valorFinalAPagar;</span>
+    }
+
+    public void setValorFinalAPagar(double valorFinalAPagar) {
+<span class="nc" id="L233">        this.valorFinalAPagar = valorFinalAPagar;</span>
+<span class="nc" id="L234">    }</span>
+
+    public double getValorTotalDescontos() {
+<span class="nc" id="L237">        return valorTotalDescontos;</span>
+    }
+
+    public void setValorTotalDescontos(double valorTotalDescontos) {
+<span class="nc" id="L241">        this.valorTotalDescontos = valorTotalDescontos;</span>
+<span class="nc" id="L242">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

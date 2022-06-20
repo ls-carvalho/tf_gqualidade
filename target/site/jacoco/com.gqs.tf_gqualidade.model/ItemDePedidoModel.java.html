@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemDePedidoModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tf_gqualidade</a> &gt; <a href="index.source.html" class="el_package">com.gqs.tf_gqualidade.model</a> &gt; <span class="el_source">ItemDePedidoModel.java</span></div><h1>ItemDePedidoModel.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.gqs.tf_gqualidade.model;
+
+/**
+ *
+ * @author Lucas dos Santos Carvalho
+ */
+public class ItemDePedidoModel {
+
+    private ProdutoModel produto;
+    private double quantidade;
+    private double valorUnitario;
+    private double valorTotal;
+
+<span class="nc" id="L18">    public ItemDePedidoModel(ProdutoModel produto, double quantidade) {</span>
+<span class="nc" id="L19">        this.produto = produto;</span>
+<span class="nc" id="L20">        this.quantidade = quantidade;</span>
+<span class="nc" id="L21">        this.valorUnitario = produto.getPrecoUnitario();</span>
+<span class="nc" id="L22">        this.valorTotal = this.quantidade * this.valorUnitario;</span>
+<span class="nc" id="L23">    }</span>
+
+    public ProdutoModel getProduto() {
+<span class="nc" id="L26">        return produto;</span>
+    }
+
+    public void setProduto(ProdutoModel produto) {
+<span class="nc" id="L30">        this.produto = produto;</span>
+<span class="nc" id="L31">    }</span>
+
+    public double getQuantidade() {
+<span class="nc" id="L34">        return quantidade;</span>
+    }
+
+    public void setQuantidade(int quantidade) {
+<span class="nc" id="L38">        this.quantidade = quantidade;</span>
+<span class="nc" id="L39">    }</span>
+
+    public double getValorUnitario() {
+<span class="nc" id="L42">        return valorUnitario;</span>
+    }
+
+    public void setValorUnitario(double valorUnitario) {
+<span class="nc" id="L46">        this.valorUnitario = valorUnitario;</span>
+<span class="nc" id="L47">    }</span>
+
+    public double getValorTotal() {
+<span class="nc" id="L50">        return valorTotal;</span>
+    }
+
+    public void setValorTotal(double valorTotal) {
+<span class="nc" id="L54">        this.valorTotal = valorTotal;</span>
+<span class="nc" id="L55">    }</span>
+
+    public void aumentarQuantidade(double adicao){
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if(adicao &gt; 0){</span>
+<span class="nc" id="L59">            this.quantidade += adicao;</span>
+        }else{
+<span class="nc" id="L61">            throw new RuntimeException(&quot;Não pode-se adicionar 0 ou menos elementos no pedido!&quot;);</span>
+        }
+<span class="nc" id="L63">    }</span>
+    
+    public void diminuirQuantidade(double diminuicao){
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if(diminuicao &lt;= this.quantidade){</span>
+<span class="nc" id="L67">            this.quantidade -= diminuicao;</span>
+        }else{
+<span class="nc" id="L69">            throw new RuntimeException(&quot;Não se pode remover um valor maior que existe no pedido!&quot;);</span>
+        }
+<span class="nc" id="L71">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

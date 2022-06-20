@@ -21,7 +21,8 @@ public class AvaliacaoUtil {
         try ( var sc = new Scanner(System.in)) {
             do {
                 System.out.println("Insira um número de 1 a 5!");
-                avaliacao = sc.nextInt();
+                //avaliacao = sc.nextInt(); //removido pra testes
+                avaliacao = 5;
             } while (avaliacao < 1 || avaliacao > 5);
         }
         System.out.println("Avaliação final do usuário: " + avaliacao + "!");
