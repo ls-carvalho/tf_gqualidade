@@ -20,10 +20,10 @@ public class ReembolsadoState extends State {
     @Override
     public void concluir() {
         //conclui a operação
-        System.out.println("Operação concluida!");
+        //System.out.println("Operação concluida!");
         //avaliação do cliente
         AvaliacaoUtil.avaliacao();
         //pedido finalizado
-        System.out.println("Pedido Finalizado!");
+        //System.out.println("Pedido Finalizado!");
     }
 }

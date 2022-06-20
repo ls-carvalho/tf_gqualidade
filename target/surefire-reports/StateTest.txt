@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: StateTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.137 s - in StateTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.086 s <<< FAILURE! - in StateTest
+StateTest.CT002  Time elapsed: 0.05 s  <<< ERROR!
+java.util.ConcurrentModificationException
+	at StateTest.CT002(StateTest.java:67)
+

@@ -19,7 +19,7 @@ public class EmRotaDeEntregaState extends State {
     @Override
     public void concluir() {
         //conclui a operação
-        System.out.println("Operação concluida!");
+        //System.out.println("Operação concluida!");
         //muda de estado
         super.getPedido().alterarState(new EntregueState(super.getPedido()));
     }

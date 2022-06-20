@@ -23,7 +23,7 @@ public class NovoState extends State {
 
     public NovoState(PedidoModel pedido) {
         super(pedido);
-        System.out.println("Novo pedido!");
+        //System.out.println("Novo pedido!");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class NovoState extends State {
         //validação do formulário
         if (super.getPedido().getQuantidadeItens() > 0) {
             //confirmar pedido
-            System.out.println("Pedido confirmado!");
+            //System.out.println("Pedido confirmado!");
             //incluir na PedidoDAO
             PedidoDAO.getInstance().adicionaPedido(super.getPedido());
             //avança de estado
@@ -51,7 +51,7 @@ public class NovoState extends State {
         //adiciono na lista de produtos
         this.getPedido().adicionarItem(new ItemDePedidoModel(produto, quantidade));
         //confirma operação
-        System.out.println(quantidade + " unidades do produto " + produto.getNome() + " adicionado com sucesso!");
+        //System.out.println(quantidade + " unidades do produto " + produto.getNome() + " adicionado com sucesso!");
     }
 
     @Override
@@ -97,7 +97,7 @@ public class NovoState extends State {
         //adiciono na cesta
         this.getPedido().adicionarCesta(itens);
         //confirma operação
-        System.out.println("Cesta " + tipo + " adicionada com sucesso!");
+        //System.out.println("Cesta " + tipo + " adicionada com sucesso!");
     }
 
     @Override
@@ -110,7 +110,7 @@ public class NovoState extends State {
         //devolve ao estoque
         ProdutoDAO.getInstance().adicionaEstoque(codigo, quantidade);
         //confirma a operação
-        System.out.println(quantidade + " unidades do produto " + produto.getNome() + " removido com sucesso!");
+        //System.out.println(quantidade + " unidades do produto " + produto.getNome() + " removido com sucesso!");
     }
 
     @Override
@@ -156,13 +156,13 @@ public class NovoState extends State {
             ProdutoDAO.getInstance().adicionaEstoque(item.getProduto().getCodigo(), item.getQuantidade());
         }
         //confirma a operação
-        System.out.println("Cesta " + tipo + " removido com sucesso!");
+        //System.out.println("Cesta " + tipo + " removido com sucesso!");
     }
 
     @Override
     public void cancelar() {
         //cancela a operação
-        System.out.println("Operação cancelada!");
+        //System.out.println("Operação cancelada!");
         //muda de estado
         super.getPedido().alterarState(new CanceladoPeloClienteState(super.getPedido()));
     }

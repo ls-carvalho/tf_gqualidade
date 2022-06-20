@@ -19,7 +19,7 @@ public class AguardandoPagamentoState extends State {
     @Override
     public void concluir() {
         //aprova a operação
-        System.out.println("Operação aprovada!");
+        //System.out.println("Operação aprovada!");
         //muda de estado
         super.getPedido().alterarState(new ConfirmadoState(super.getPedido()));
     }
@@ -27,7 +27,7 @@ public class AguardandoPagamentoState extends State {
     @Override
     public void cancelar() {
         //cancela a operação
-        System.out.println("Operação cancelada!");
+        //System.out.println("Operação cancelada!");
         //muda de estado
         super.getPedido().alterarState(new CanceladoPeloClienteState(super.getPedido()));
     }
