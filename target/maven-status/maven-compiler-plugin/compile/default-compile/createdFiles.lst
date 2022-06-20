@@ -1,6 +1,6 @@
-com\gqs\tf_gqualidade\Main.class
 com\gqs\tf_gqualidade\model\ItemDePedidoModel.class
 com\gqs\tf_gqualidade\state\CanceladoPeloEstabelecimentoState.class
+com\gqs\tf_gqualidade\builder\EconomicaBuilder.class
 com\gqs\tf_gqualidade\builder\EmpacotadorBuilder.class
 com\gqs\tf_gqualidade\dao\ImpostoDAO.class
 com\gqs\tf_gqualidade\dao\ProdutoDAO.class
@@ -11,7 +11,6 @@ com\gqs\tf_gqualidade\builder\ICestaBuilder.class
 com\gqs\tf_gqualidade\dao\DescontoDAO.class
 com\gqs\tf_gqualidade\state\ReembolsadoState.class
 com\gqs\tf_gqualidade\state\AguardandoPagamentoState.class
-com\gqs\tf_gqualidade\builder\EconimicaBuilder.class
 com\gqs\tf_gqualidade\model\ClienteModel.class
 com\gqs\tf_gqualidade\state\NovoState.class
 com\gqs\tf_gqualidade\state\EntregueState.class
